@@ -2,26 +2,72 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi primera página web</title>
+    <title>Catálogo con Lupa</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 40px;
+            background: #f4f4f4;
+            padding: 20px;
         }
+
         h1 {
-            color: #2c3e50;
+            text-align: center;
         }
-        p {
-            font-size: 18px;
+
+        .catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .producto {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .img-zoom {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .img-zoom img {
+            width: 100%;
+            transition: transform 0.4s ease;
+        }
+
+        .img-zoom:hover img {
+            transform: scale(1.8);
+            cursor: zoom-in;
         }
     </style>
 </head>
 <body>
 
-    <h1>Bienvenida a mi página web</h1>
-    <p>Creada con GitHub Pages</p>
+<h1>Catálogo de Productos</h1>
+
+<div class="catalogo">
+
+    <div class="producto">
+        <div class="img-zoom">
+            <img src="img/producto1.jpg" alt="Producto 1">
+        </div>
+        <h3>Producto 1</h3>
+        <p>Descripción del producto</p>
+    </div>
+
+    <div class="producto">
+        <div class="img-zoom">
+            <img src="img/producto2.jpg" alt="Producto 2">
+        </div>
+        <h3>Producto 2</h3>
+        <p>Descripción del producto</p>
+    </div>
+
+</div>
 
 </body>
 </html>
