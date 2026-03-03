@@ -1,71 +1,96 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Catálogo con Lupa</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo MISE</title>
 
-        h1 {
-            text-align: center;
-        }
+<style>
 
-        .catalogo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    padding:20px;
+    background:#f2f2f2;
+}
 
-        .producto {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
+h1{
+    text-align:center;
+    margin-bottom:40px;
+}
 
-        .img-zoom {
-            width: 100%;
-            height: 250px;
-            overflow: hidden;
-            border-radius: 8px;
-        }
+.catalogo{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
 
-        .img-zoom img {
-            width: 100%;
-            transition: transform 0.4s ease;
-        }
+.producto{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    text-align:center;
+}
 
-        .img-zoom:hover img {
-            transform: scale(1.8);
-            cursor: zoom-in;
-        }
-    </style>
+.img-container{
+    overflow:hidden;
+    border-radius:10px;
+}
+
+.img-container img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+    transition:transform 0.4s ease;
+}
+
+.img-container:hover img{
+    transform:scale(1.6);
+}
+
+h3{
+    margin:15px 0 5px;
+}
+
+.precio{
+    font-weight:bold;
+    color:#000;
+    margin-top:5px;
+}
+
+</style>
 </head>
+
 <body>
 
-<h1>Catálogo de Productos</h1>
+<h1>Catálogo MISE</h1>
 
 <div class="catalogo">
 
-    <div class="producto">
-        <div class="img-zoom">
-            <img src="img/producto1.jpg" alt="Producto 1">
-        </div>
-        <h3>Producto 1</h3>
-        <p>Descripción del producto</p>
+<div class="producto">
+    <div class="img-container">
+        <img src="img/12.jpg">
     </div>
+    <h3>Modelo 12</h3>
+    <div class="precio">$ ---</div>
+</div>
 
-    <div class="producto">
-        <div class="img-zoom">
-            <img src="img/producto2.jpg" alt="Producto 2">
-        </div>
-        <h3>Producto 2</h3>
-        <p>Descripción del producto</p>
+<div class="producto">
+    <div class="img-container">
+        <img src="img/13.jpg">
     </div>
+    <h3>Modelo 13</h3>
+    <div class="precio">$ ---</div>
+</div>
+
+<div class="producto">
+    <div class="img-container">
+        <img src="img/14.jpg">
+    </div>
+    <h3>Modelo 14</h3>
+    <div class="precio">$ ---</div>
+</div>
 
 </div>
 
