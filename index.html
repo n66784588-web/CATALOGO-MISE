@@ -6,18 +6,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-  .img-magnifier-glass {
-    position: absolute;
-    border: 3px solid #000;
-    border-radius: 50%;
-    cursor: none;
-    width: 220px;
-    height: 220px;
-    /* ESTAS 2 LÍNEAS SON VITALES */
-    z-index: 999;
-    pointer-events: none; 
-  }
+.img-container {
+  position: relative;
+  overflow: hidden; /* Esto hace que el zoom no se salga del cuadro */
+  cursor: zoom-in;
+  display: inline-block;
+}
 
+.img-container img {
+  transition: transform 0.3s ease; /* Hace que el zoom sea suave */
+  width: 100%; /* Ajusta al tamaño de tu columna */
+}
+
+/* Cuando pones el mouse, la imagen se agranda */
+.img-container:hover img {
+  transform: scale(2); /* '2' es el nivel de zoom, puedes usar 1.5 o 2.5 */
+  transform-origin: center; /* Por ahora en el centro, abajo lo hacemos dinámico */
+}
   .img-container {
     position: relative;
     display: inline-block;
@@ -123,50 +128,28 @@ body{
 <div class="pagina"><div class="img-container"><img id="img52" class="img-lupa" src="img/producto52.jpg"></div></div>
 
 <script>
-function magnify(imgID, zoom) {
-  var img, glass, w, h, bw;
-  img = document.getElementById(imgID);
-  if (!img) return; 
+  // Esta función activa el zoom en todas las imágenes con la clase 'img-container'
+  document.querySelectorAll('.img-container').forEach(container => {
+    const img = container.querySelector('img');
 
-  /* Crear cristal de lupa */
-  glass = document.createElement("DIV");
-  glass.setAttribute("class", "img-magnifier-glass");
-  img.parentElement.insertBefore(glass, img);
+    container.addEventListener('mousemove', (e) => {
+      // Calculamos la posición del cursor dentro de la imagen
+      const rect = container.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-  /* Configurar fondo */
-  glass.style.backgroundImage = "url('" + img.src + "')";
-  glass.style.backgroundRepeat = "no-repeat";
-  glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
-  bw = 3;
-  w = glass.offsetWidth / 2;
-  h = glass.offsetHeight / 2;
+      // Movemos el punto de origen del zoom a donde está el cursor
+      img.style.transformOrigin = `${x}% ${y}%`;
+      img.style.transform = "scale(2)"; // Aquí controlas qué tanto se agranda (2 es el doble)
+    });
 
-  /* Eventos */
-  glass.addEventListener("mousemove", moveMagnifier);
-  img.addEventListener("mousemove", moveMagnifier);
-  glass.addEventListener("touchmove", moveMagnifier);
-  img.addEventListener("touchmove", moveMagnifier);
-
- function moveMagnifier(e) {
-        var pos, x, y;
-        e.preventDefault();
-        pos = getCursorPos(e);
-        x = pos.x;
-        y = pos.y;
-
-        /* Evita que la lupa se salga de la imagen */
-        if (x > img.width) {x = img.width;}
-        if (x < 0) {x = 0;}
-        if (y > img.height) {y = img.height;}
-        if (y < 0) {y = 0;}
-
-        /* CENTRADO: Esto hace que el cursor sea el centro del círculo */
-        glass.style.left = (x - w) + "px";
-        glass.style.top = (y - h) + "px";
-
-        /* ALINEACIÓN DEL ZOOM: Muestra exactamente lo que hay debajo */
-        glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
-    }
+    // Cuando el mouse sale, la imagen regresa a su tamaño normal
+    container.addEventListener('mouseleave', () => {
+      img.style.transform = "scale(1)";
+      img.style.transformOrigin = "center";
+    });
+  });
+</script>
 
   function getCursorPos(e) {
     var a, x = 0, y = 0;
