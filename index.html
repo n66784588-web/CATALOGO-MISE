@@ -18,11 +18,7 @@
   width: 100%; /* Ajusta al tamaño de tu columna */
 }
 
-/* Cuando pones el mouse, la imagen se agranda */
-.img-container:hover img {
-  transform: scale(2); /* '2' es el nivel de zoom, puedes usar 1.5 o 2.5 */
-  transform-origin: center; /* Por ahora en el centro, abajo lo hacemos dinámico */
-}
+
 .img-container {
     position: relative;
     display: inline-block;
@@ -141,7 +137,7 @@ body{
 
     
 
-    <script>
+   <script>
   document.querySelectorAll('.img-container').forEach(container => {
     const img = container.querySelector('img');
 
@@ -151,7 +147,7 @@ body{
       const y = ((e.clientY - rect.top) / rect.height) * 100;
 
       img.style.transformOrigin = `${x}% ${y}%`;
-      img.style.transform = "scale(2.5)";
+      img.style.transform = "scale(2.5)"; // Este es el aumento del enfoque
     });
 
     container.addEventListener('mouseleave', () => {
@@ -159,8 +155,9 @@ body{
       img.style.transformOrigin = "center";
     });
   });
-    </div> </body>
-</html>
- 
+</script>
 
+</div> </body>
+</html>
+  
 
