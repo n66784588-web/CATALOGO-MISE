@@ -23,11 +23,14 @@
   transform: scale(2); /* '2' es el nivel de zoom, puedes usar 1.5 o 2.5 */
   transform-origin: center; /* Por ahora en el centro, abajo lo hacemos dinámico */
 }
-  .img-container {
+.img-container {
     position: relative;
     display: inline-block;
-    /* Esto evita que la lupa se corte si la imagen es pequeña */
-    overflow: visible; 
+    overflow: hidden; /* <--- CAMBIA ESTO (estaba en visible) */
+    width: 100%;
+    border: 1px solid #ddd; /* Opcional: un marco gris fino */
+    margin-bottom: 10px;
+}
   }
 body{
     margin:0;
@@ -84,7 +87,6 @@ body{
 <div class="pagina"><div class="img-container"><img src="img/8.jpg" class="img-lupa"></div></div>
 <div class="pagina"><div class="img-container"><img src="img/9.jpg" class="img-lupa"></div></div>
 <div class="pagina"><div class="img-container"><img src="img/10.jpg" class="img-lupa"></div></div>
-
 <div class="pagina"><div class="img-container"><img src="img/11.jpg" class="img-lupa"></div></div>
 <div class="pagina"><div class="img-container"><img src="img/12.jpg" class="img-lupa"></div></div>
 <div class="pagina"><div class="img-container"><img src="img/13.jpg" class="img-lupa"></div></div>
@@ -106,7 +108,6 @@ body{
 <div class="pagina"><div class="img-container"><img src="img/28.jpg" class="img-lupa"></div></div>
 <div class="pagina"><div class="img-container"><img src="img/29.jpg" class="img-lupa"></div></div>
 <div class="pagina"><div class="img-container"><img src="img/30.jpg" class="img-lupa"></div></div>
-
 <div class="pagina"><div class="img-container"><img src="img/31.jpg" class="img-lupa"></div></div>
 <div class="pagina"><div class="img-container"><img src="img/32.jpg" class="img-lupa"></div></div>
 <div class="pagina"><div class="img-container"><img src="img/33.jpg" class="img-lupa"></div></div>
@@ -137,46 +138,30 @@ body{
 <div class="pagina"><div class="img-container"><img src="img/57.jpg" class="img-lupa"></div></div>
 <div class="pagina"><div class="img-container"><img src="img/58.jpg" class="img-lupa"></div></div>
 <div class="pagina"><div class="img-container"><img src="img/59.jpg" class="img-lupa"></div></div>
-<script>
-  // Esta función activa el zoom en todas las imágenes con la clase 'img-container'
+
+    
+
+    <script>
   document.querySelectorAll('.img-container').forEach(container => {
     const img = container.querySelector('img');
 
     container.addEventListener('mousemove', (e) => {
-      // Calculamos la posición del cursor dentro de la imagen
       const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 100;
       const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-      // Movemos el punto de origen del zoom a donde está el cursor
       img.style.transformOrigin = `${x}% ${y}%`;
-      img.style.transform = "scale(2)"; // Aquí controlas qué tanto se agranda (2 es el doble)
+      img.style.transform = "scale(2.5)";
     });
 
-    // Cuando el mouse sale, la imagen regresa a su tamaño normal
     container.addEventListener('mouseleave', () => {
       img.style.transform = "scale(1)";
       img.style.transformOrigin = "center";
     });
   });
 </script>
+</html>    
 
-  function getCursorPos(e) {
-    var a, x = 0, y = 0;
-    e = e || window.event;
-    a = img.getBoundingClientRect();
-    x = e.pageX - a.left;
-    y = e.pageY - a.top;
-    x = x - window.pageXOffset;
-    y = y - window.pageYOffset;
-    return {x : x, y : y};
-  }
-}
+ 
 
-/* ACTIVAR EN LAS 52 IMÁGENES */
-window.onload = function() {
-  for (let i = 1; i <= 52; i++) {
-    magnify("img" + i, 3);
-  }
-};
-</script>
+
